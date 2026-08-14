@@ -42,8 +42,8 @@ const context = (jid, img) => ({
     isForwarded: true,
     forwardingScore: 1,
     forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363225356834044@newsletter',
-        newsletterName: '𝐕𝐈𝐈7 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+        newsletterJid: '120363429927228603@newsletter',
+        newsletterName: 'ITACHI_BOT 🕷️',
         serverMessageId: 0
     },
     externalAdReply: {
@@ -126,5 +126,5 @@ ${cmdsList}
     return true;
 };
 
-menu.command = ['الاوامر', 'القائمة', 'menu', 'اوامر'];
+menu.command = ['الاوامر', 'القائمة', 'menu', 'اوامر','ااا'];
 export default menu;

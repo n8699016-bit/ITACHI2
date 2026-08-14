@@ -1,12 +1,14 @@
 export default async function before(m, { conn, bot }) {
-    const groups = [
-        "120363353449975838@g.us",
-        "120363418376913985@g.us"
-    ]; /* حط الجروبات الي عايز البوتات الفرعي متشتغلش فيها */
-
-    if (bot.isSubBot && groups.includes(m.chat)) {
-        return true;
+    if (bot.isSubBot && m.isGroup) {
+        try {
+            const mainBotId = global.conn?.user?.id ? global.conn.user.id.split(':')[0] : null;
+            if (mainBotId) {
+                const metadata = await conn.groupMetadata(m.chat);
+                const isMainPresent = metadata.participants.some(p => p.id.includes(mainBotId));
+                if (isMainPresent) return true;
+            }
+        } catch (e) {}
     }
-
     return false;
 }
+

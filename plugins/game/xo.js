@@ -4,36 +4,76 @@ async function handler(m, { command, text, conn }) {
     const [cmd] = text.trim().toLowerCase().split(' ');
     const isDelete = cmd === 'delete' || cmd === 'حذف';
     const isJoin = cmd === 'join' || cmd === 'انضمام';
-    
+
+    // دالة مساعدة آمنة لجلب الاسم
+    const getName = async (jid) => {
+        try {
+            if (conn.getName) return await conn.getName(jid);
+            if (conn.getContact) {
+                const contact = await conn.getContact(jid);
+                return contact?.pushname || contact?.name || jid.split('@')[0];
+            }
+            return jid.split('@')[0];
+        } catch {
+            return jid.split('@')[0];
+        }
+    };
+
     if (isDelete) {
         if (!game) return m.reply("❌ لا توجد لعبة نشطة للحذف!");
-        if (game.player1 !== m.sender && game.player2 !== m.sender) return m.reply("❌ فقط اللاعبين يمكنهم حذف اللعبة!");
+        if (game.player1 !== m.sender && game.player2 !== m.sender) 
+            return m.reply("❌ فقط اللاعبين يمكنهم حذف اللعبة!");
         delete global.xoGames[m.chat];
         return m.reply("🗑️ تم حذف اللعبة!");
     }
-    
-    if (!command || isJoin) {
+
+    // الانضمام
+    if (isJoin || cmd === 'join') {
         if (!game) return m.reply("❌ لا توجد لعبة للانضمام! اكتب *.xo* لإنشاء لعبة.");
         if (game.status === 'playing') return m.reply("❌ اللعبة بدأت بالفعل!");
         if (game.player1 === m.sender) return m.reply("❌ لا يمكنك اللعب ضد نفسك!");
-        
+
         game.player2 = m.sender;
         game.status = 'playing';
-        return conn.sendMessage(m.chat, { 
-            text: `🎮 بدأت اللعبة!\n\n${drawBoard(game.board)}\n\n@${game.player1.split('@')[0]} (❌) ضد @${game.player2.split('@')[0]} (⭕)\n\n@${game.player1.split('@')[0]} يبدأ! اختر رقم من 1 إلى 9`,
-            mentions: [game.player1, game.player2] 
+
+        const name1 = await getName(game.player1);
+        const name2 = await getName(game.player2);
+
+        return conn.sendMessage(m.chat, {
+            text: `🎮 بدأت اللعبة!\n\n${drawBoard(game.board)}\n\n@${game.player1.split('@')[0]} (${name1}) ❌  ضد  @${game.player2.split('@')[0]} (${name2}) ⭕\n\n@${game.player1.split('@')[0]} يبدأ! اختر رقم من 1 إلى 9`,
+            mentions: [game.player1, game.player2]
         });
     }
-    
+
+    // إذا فيه لعبة موجودة
     if (game) {
-        return m.reply(game.status === 'waiting' 
-            ? `❌ @${game.player1.split('@')[0]} ينتظر خصماً.\n\nاكتب *.xo* للانضمام أو *.xo delete* للإلغاء!`
-            : "❌ توجد لعبة نشطة في هذه الدردشة!\n\nاكتب *.xo delete* لإلغاء اللعبة الحالية.", 
-        null, game.status === 'waiting' ? { mentions: [game.player1] } : undefined);
+        if (game.status === 'waiting') {
+            const name = await getName(game.player1);
+            return m.reply(
+                `❌ @${game.player1.split('@')[0]} (${name}) ينتظر خصماً.\n\nاكتب *.xo join* للانضمام أو *.xo delete* للإلغاء!`,
+                null,
+                { mentions: [game.player1] }
+            );
+        } else {
+            return m.reply("❌ توجد لعبة نشطة في هذه الدردشة!\n\nاكتب *.xo delete* لإلغاء اللعبة الحالية.");
+        }
     }
-    
-    global.xoGames[m.chat] = { player1: m.sender, player2: null, board: Array(9).fill(null), turn: 'X', status: 'waiting' };
-    return m.reply(`🎮 تم إنشاء لعبة XO!\n\n@${m.sender.split('@')[0]} ينتظر خصماً.\n\nاكتب *.xo* للانضمام!`, null, { mentions: [m.sender] });
+
+    // إنشاء لعبة جديدة
+    global.xoGames[m.chat] = {
+        player1: m.sender,
+        player2: null,
+        board: Array(9).fill(null),
+        turn: 'X',
+        status: 'waiting'
+    };
+
+    const name = await getName(m.sender);
+    return m.reply(
+        `🎮 تم إنشاء لعبة XO!\n\n@${m.sender.split('@')[0]} (${name}) ينتظر خصماً.\n\nاكتب *.xo join* للانضمام!`,
+        null,
+        { mentions: [m.sender] }
+    );
 }
 
 handler.before = async (m, { conn }) => {

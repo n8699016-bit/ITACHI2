@@ -36,8 +36,8 @@ const group = async (ctx, event, eventType) => {
             body: "𝐴 𝑠𝑖𝑚𝑝𝑙𝑒 𝑊𝒉𝑎𝑡𝑠𝐴𝑝𝑝 𝑏𝑜𝑡 𝑓𝑜𝑟 𝑏𝑒𝑔𝑖𝑛𝑛𝑒𝑟𝑠, 𝑏𝑦 𝑉𝐸𝑁𝑂𝑀",
             mentions: author ? [author, ...participants] : participants,
             newsletter: {
-                name: '𝐕𝐈𝐈7 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
-                jid: '120363225356834044@newsletter'
+                name: '𝕭𝖑𝖆𝖈𝖐 𝕾𝖍𝖆𝖉𝖔𝖜𝖘🕷️',
+                jid: '0029Vb82elIJkK7GCns06J00@newsletter'
             },
             big: ["remove", "add"].includes(eventType)
         });
@@ -84,8 +84,8 @@ const access = async (msg, checkType, time) => {
             title: "𝐀𝐥𝐞𝐫𝐭𝐬 | 𝐖𝐚𝐫𝐧𝐢𝐧𝐠𝐬",
             body: "𝐵𝑜𝑡 𝑎𝑙𝑒𝑟𝑡𝑠: 𝑅𝑒𝑎𝑑 𝑡𝒉𝑒 𝑚𝑒𝑠𝑠𝑎𝑔𝑒 𝑡𝑜 𝑙𝑒𝑎𝑟𝑛 𝑚𝑜𝑟𝑒",
             newsletter: {
-                name: '𝐕𝐈𝐈7 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
-                jid: '120363225356834044@newsletter'
+                name: '𝕭𝖑𝖆𝖈𝖐 𝕾𝖍𝖆𝖉𝖔𝖜𝖘🕷️',
+                jid: '0029Vb82elIJkK7GCns06J00@newsletter'
             },
             big: false
         }, quoted);

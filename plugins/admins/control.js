@@ -28,7 +28,7 @@ let control = async (m, { command, text, conn, bot, participants }) => {
             return m.reply("*✅ تمت الإضافة*");
         }
         
-        if (command === "طرد") {
+        if (command === "طير") {
             let user = getUser();
             if (!user) return m.reply("❌ منشن أو رد على العضو");
             
@@ -60,8 +60,8 @@ let control = async (m, { command, text, conn, bot, participants }) => {
     }
 };
 
-control.usage = ['ضيف', 'طرد', 'رفع', 'خفض'];
-control.command = ['ضيف', 'طرد', 'رفع', 'خفض'];
+control.usage = ['ضيف', 'طير', 'رفع', 'خفض'];
+control.command = ['ضيف', 'طير', 'رفع', 'خفض'];
 control.admin = true;
 control.botAdmin = true;
 control.category = "admin";

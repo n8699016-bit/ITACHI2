@@ -26,20 +26,16 @@ const getImg = (bot) => {
     return Array.isArray(images) ? images[Math.floor(Math.random() * images.length)] : images;
 };
 
+// تم تنظيف وتخفيف الـ contextInfo لتجنب الحظر المخفي للرسالة
 const context = (jid, img) => ({
     mentionedJid: [jid],
     isForwarded: true,
     forwardingScore: 1,
-    forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363225356834044@newsletter',
-        newsletterName: '𝐕𝐈𝐈7 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
-        serverMessageId: 0
-    },
     externalAdReply: {
         title: "𝐏𝐎𝐌𝐍𝐈-𝐀𝐈 🎪 | 𝐁𝐨𝐭 𝐢𝐬 𝐛𝐮𝐢𝐥𝐭 𝐨𝐧 𝐭𝐡𝐞 𝐖𝐒/𝐕𝐈𝐈 𝐟𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤",
         body: "𝚆𝚑𝚊𝚝𝚜𝙰𝚙𝚙 𝚋𝚘𝚝 𝚝𝚑𝚊𝚝 𝚒𝚜 𝚎𝚊𝚜𝚢 𝚝𝚘 𝚖𝚘𝚍𝚒𝚏𝚢 𝚊𝚗𝚍 𝚟𝚎𝚛𝚢 𝚏𝚊𝚜𝚝",
         thumbnailUrl: img,
-        sourceUrl: '',
+        sourceUrl: 'https://whatsapp.com/channel/0029Vb3UUKz3QxS3bgWmTc3x', // تم إضافة رابط حقيقي
         mediaType: 1,
         renderLargerThumbnail: true
     }
@@ -49,22 +45,16 @@ async function handler(m, { conn, bot, command, args }) {
     const selected = parseInt(args[0]);
     const now = new Date();
     const uptimeSeconds = process.uptime();
-const hours = Math.floor(uptimeSeconds / 3600);
-const minutes = Math.floor((uptimeSeconds % 3600) / 60);
-const seconds = Math.floor(uptimeSeconds % 60);
-const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    const hours = Math.floor(uptimeSeconds / 3600);
+    const minutes = Math.floor((uptimeSeconds % 3600) / 60);
+    const seconds = Math.floor(uptimeSeconds % 60);
+    const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     const date = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
     const time = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     
     if (!selected && !args[0]) {
-        const sections = [{
-            title: "🌳 ~ الاقـسـام ~ 🪾",
-            rows: CATEGORIES.map(c => ({
-                title: `${c[0]} ~ ${c[1]} ${c[3]}`,
-                description: `اضغط لعرض أوامر قسم ${c[1]}`,
-                id: `.${command} ${c[0]}`
-            }))
-        }];
+        // تم استخراج الأقسام وعرضها كنص بدلاً من الأزرار
+        let categoriesList = CATEGORIES.map(c => `┃ ⌯︙${c[0]} ~ *قـسـم ${c[1]} ${c[3]}*`).join('\n');
 
         const menuText = `
 رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ
@@ -74,25 +64,18 @@ const uptimeFormatted = `${String(hours).padStart(2, '0')}:${String(minutes).pad
 ┃ ⌯🚀︙ الـتشـغـيـل → ${uptimeFormatted}
 ┃ ⌯👾︙ الـتـاريـخ → ${date} - ${time}
 ╰─┈─┈─┈─⟞🎪⟝─┈─┈─┈─╯
-> *_اختار قسم من القائمة عشان يبعتلك اوامر القسم_*`;
+╭─┈─┈─┈─⟞🌳⟝─┈─┈─┈─╮
+${categoriesList}
+╰─┈─┈─┈─⟞🌳⟝─┈─┈─┈─╯
+> *_اختار قسم من القائمة واكتب الأمر كالتالي: .المهام 1_*`;
         
-        await conn.sendButtonNormal(m.chat, {
-            media: { url: "https://i.pinimg.com/originals/e2/21/20/e221203f319df949ee65585a657501a2.jpg" },
-            mediaType: 'image',
+        // استخدام رسالة نصية مدعومة بصورة
+        await conn.sendMessage(m.chat, {
+            image: { url: "https://i.pinimg.com/originals/e2/21/20/e221203f319df949ee65585a657501a2.jpg" },
             caption: menuText,
-            buttons: [{
-                name: "single_select",
-                params: {
-                    title: "🍂✨",
-                    sections: sections
-                }
-            }],
             mentions: [m.sender],
-            newsletter: {
-                name: '𝐕𝐈𝐈7 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
-                jid: '120363225356834044@newsletter'
-            }
-        }, global.reply_status);
+            contextInfo: context(m.sender, "https://i.pinimg.com/originals/e2/21/20/e221203f319df949ee65585a657501a2.jpg")
+        }, { quoted: m }); // تم استبدال global.reply_status بـ m
         return;
     }
 
