@@ -1,4 +1,4 @@
-# ✨ ITACHI2 WhatsApp Bot
+# ✨ TACHI2-main WhatsApp Bot
 
 <div align="center">
   <img src="https://i.pinimg.com/originals/e2/21/20/e221203f319df949ee65585a657501a2.jpg" alt="IMAGE" width="500"/>
@@ -35,8 +35,8 @@
 termux-setup-storage
 pkg update -y && pkg upgrade -y
 pkg install git nodejs -y
-git clone https://github.com/deveni0/ITACHI2.git
-cd ITACHI2
+git clone https://github.com/deveni0/TACHI2-main.git
+cd TACHI2-main
 npm install
 npm start
 ```
