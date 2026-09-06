@@ -35,8 +35,8 @@
 termux-setup-storage
 pkg update -y && pkg upgrade -y
 pkg install git nodejs -y
-git clone https://github.com/deveni0/TACHI2-main.git
-cd TACHI2-main
+git clone https://github.com/n8699016-bit/ITACHI2.git
+cd TACHI2
 npm install
 npm start
 ```
