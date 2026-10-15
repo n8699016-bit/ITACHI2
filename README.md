@@ -71,7 +71,7 @@ npm start
 
 - Owner: [click](https://wa.me/963936585419)
 - Group: [Join here](https://chat.whatsapp.com/BqNmpkndDplLaJVigfSi5D)
-- Community: [Join here](https://chat.whatsapp.com/BuzSrIJOV7S881JMqu8blX)
+- Channel: [Join here](https://whatsapp.com/channel/0029Vb82elIJkK7GCns06J00)
 
 
 ---
