@@ -85,7 +85,7 @@ export default run;
 const Func = {
   pair: async (conn, code, num, m, reply_status) => {
     await conn.sendButton(m.chat, {
-      imageUrl: "https://i.pinimg.com/736x/20/c1/cd/20c1cd046c862caa5a42e07d00042357.jpg",
+      imageUrl: "https://i.postimg.cc/kXnc5MKX/1790361605979.jpg",
       bodyText: `🔐⤿ نـظـام الـبـوتـات الـفـرعـيـه 𑁍
 ⊱⋅ ──────────── ⋅⊰
 📱 — الرقم: ${num}
@@ -99,7 +99,7 @@ const Func = {
       ],
       mentions: [m.sender],
       newsletter: {
-        name: '𝐕𝐈𝐈7 ~ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 🕷️',
+        name: 'ITACHI_BOT🕷️',
         jid: '120363225356834044@newsletter'
       },
       interactiveConfig: {
