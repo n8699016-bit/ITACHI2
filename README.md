@@ -3,7 +3,7 @@
 <div align="center">
   <img src="https://i.postimg.cc/ZnCBgQXb/Screenshot-20260923-151740.jpg" alt="IMAGE" width="500"/>
   
-  [![GitHub](https://img.shields.io/badge/GitHub-VENi-blue?style=for-the-badge&logo=github)](https://github.com/deveni0)
+  [![GitHub](https://img.shields.io/badge/GitHub-ITACHI-blue?style=for-the-badge&logo=github)](https://github.com/n8699016-bit)
   [![WhatsApp](https://img.shields.io/badge/WhatsApp-Owner-green?style=for-the-badge&logo=whatsapp)](https://wa.me/201554582851)
   [![WhatsApp](https://img.shields.io/badge/WhatsApp-Channel-orange?style=for-the-badge&logo=whatsapp)](https://whatsapp.com/channel/0029Vb82elIJkK7GCns06J00)
  
